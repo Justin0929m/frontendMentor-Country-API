@@ -1,0 +1,173 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,300;6..12,600;6..12,800&display=swap");
+
+:root {
+  /* LM - Light Mode */
+  /* DM - Dark Mode */
+
+  /* Dark Mode Colours */
+  --darkBlue: hsl(209, 23%, 22%);
+  --veryDarkBlue: hsl(207, 26%, 17%);
+  --white: hsl(0, 0%, 100%);
+
+  /* Light Mode Colours */
+  --veryDarkBlueLM: hsl(200, 15%, 8%);
+  --veryLightGray: hsl(0, 0%, 98%);
+  --darkGray: hsl(0, 0%, 52%);
+}
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Nunito Sans", sans-serif;
+}
+
+/* Dark Mode / Light Mode Buttons */
+
+.dark-btn {
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  font-weight: 600;
+}
+
+/* Nav Bar */
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 4rem;
+  /* border-bottom: 2px solid; */
+  box-shadow: 0 2px 6px -6px black;
+}
+
+/* Main Section */
+
+.main {
+  margin-inline: 4rem;
+}
+
+.search-functions {
+  display: flex;
+  place-items: center;
+  justify-content: space-between;
+}
+
+.input {
+  margin-block: 3rem;
+}
+
+.search {
+  width: 25rem;
+  height: 3rem;
+  padding-left: 3rem;
+  position: relative;
+  border: 1px solid;
+  /* box-shadow: 1px 0px 9px 0px rgba(0, 0, 0, 0.2); */
+}
+
+select {
+  background-color: transparent;
+  border: 1px solid;
+  padding: 0 1em 0 1rem;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: inherit;
+  line-height: inherit;
+  /* box-shadow: 1px 0px 9px 0px rgba(0, 0, 0, 0.2); */
+  width: 15rem;
+  height: 3rem;
+}
+
+.search-icon {
+  position: absolute;
+  z-index: 999;
+  font-size: 1.2rem;
+  padding: 0.6rem;
+}
+
+/* Country Section */
+
+.country-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.card {
+  width: 18rem;
+  box-shadow: 1px 0px 9px 0px rgba(0, 0, 0, 0.2);
+}
+
+.card-img {
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  width: 100%;
+}
+
+.card-body {
+  padding: 1rem;
+}
+
+.card-title {
+  padding-block: 0.5rem;
+}
+
+/* Loader */
+
+.display-loader {
+  display: block;
+}
+
+/* Theme Styling */
+
+.display-mode-theme{
+    display: none;
+}
+
+.dark-bg{
+    background-color: var(--veryDarkBlue);
+    color: var(--white);
+}
+
+.dark-color{
+    color: #fff;
+    background-color: var(--darkBlue);
+    border: none;
+}
+
+.dark-nav{
+    background-color: var(--darkBlue);
+}
+
+/* Mobile Styling */
+
+@media only screen and (max-width: 768px) {
+    .main{
+        margin: 1.5rem;
+    }
+
+    .search-functions{
+        flex-direction: column;
+        place-items: initial;
+    }
+
+    .search{
+        width: 100%;
+    }
+
+    select{
+        align-self: flex-start;
+        margin-bottom: 2rem;
+    }
+
+    .card{
+        width: 100%;
+    }
+}
