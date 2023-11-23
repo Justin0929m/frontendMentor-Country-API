@@ -1,52 +1,22 @@
 // // API Endpoint - https://restcountries.com/v3.1/all
 
-const fetchCountries = async ()=>{
-    const res = await fetch("https://restcountries.com/v3.1/all");
-    const data = await res.json()
-
-    displayCountries(data);
-      
-}
-
-
-const searchQuery = async ()=>{
-
-    const searchField = document.querySelector("#searchField");
-    const searchTrim = searchField.value.trim();
-
-    if (searchTrim != "") {
-      const res = await fetch(
-        `https://restcountries.com/v3.1/name/${searchTrim}`
-      );
-      const data = await res.json();
-
-      displayCountries(data);
-    } else {
-      fetchCountries();
+const fetchCountriesObject = {
+    fetchCountries: async function(){
+        const res = await fetch("https://restcountries.com/v3.1/all");
+        const data = await res.json()
+        localStorage.setItem('countries', JSON.stringify(data))
+        renderCountries.render(data);
     }
-    
-}
+} 
 
+const renderCountries = {
+  displayData: document.querySelector("#countries"),
 
-const filterCountries = async (selectValue)=>{
-    const res = await fetch(`https://restcountries.com/v3.1/region/${selectValue}`);
-    const data = await res.json()
-
-    displayCountries(data)
-}
-
-
-const searchInput = async ()=>{
-    
-}
-
-const displayCountries = (countries)=>{
-    let displayData = document.querySelector('#countries')
-
-    displayData.innerHTML = ''
-    countries.forEach((countries) =>{
-        displayData.innerHTML += `
-            <div class="card" onclick='fetchCountry("${countries.name.common}")'>
+  render: function (countries) {
+    this.displayData.innerHTML = "";
+    countries.forEach((countries) => {
+      this.displayData.innerHTML += `
+            <div class="card" onclick="fetchSingleCountry.fetchCountry('${countries.name.common}')">
                     <img src="${countries.flags.png}" id="flag-img" class="card-img"  width="250" alt="">
                     <div class="card-body">
                         <h1 class="card-title" id="country-title">${countries.name.common}</h1>
@@ -56,80 +26,120 @@ const displayCountries = (countries)=>{
                     </div>
             </div>
         `;
-    })
-}
+    });
+  },
+};
 
-let select = document.querySelector("select");
-let selected = document.querySelector(".selected");
+fetchCountriesObject.fetchCountries()
 
-select.addEventListener("change", dropdownFunc);
+const searchQuery = {
+  searchField: document.querySelector("#searchField"),
+  
+  checkFunc: async function(){
 
-function dropdownFunc(){
+      const searchTrim = this.searchField.value.trim()
+      let countryArr = JSON.parse(localStorage.getItem('countries'))
 
-    let selectValue = select.value
+    if(this.searchTrim != ''){
+    //     const res = await fetch(
+    //     `https://restcountries.com/v3.1/name/${searchTrim}`
+    //   );
+    //   const data = await res.json();
 
-    filterCountries(selectValue)
-}
+
+
+    console.log(countryArr.includes(searchTrim));
+
+    //   renderCountries.render(data)
+    } else{
+        fetchCountriesObject.fetchCountries()
+    }
+  }
+};
+
+let searchBtn = document.querySelector('#searchBtn')
+
+searchBtn.addEventListener('click', searchQuery.checkFunc.bind(searchQuery))
+
+const countrySelector = {
+  select: document.querySelector("select"),
+  selected: document.querySelector(".selected"),
+
+  init: function () {
+    this.select.addEventListener("change", this.dropdownFunc.bind(this));
+  },
+
+  dropdownFunc: function () {
+    let selectedValue = this.select.value;
+    this.filterCountries(selectedValue);
+  },
+
+  filterCountries: async function (selectedValue) {
+    const res = await fetch(
+      `https://restcountries.com/v3.1/region/${selectedValue}`
+    );
+    const data = await res.json();
+
+    renderCountries.render(data)
+  },
+};
+
+countrySelector.init()
 
 // Dark Mode / Light Mode
 
-let buttonClicked = false
+const themeToggle = {
+    buttonClicked: false,
+    darkMode: document.querySelector('#dark-mode'),
+    lightMode: document.querySelector('#light-mode'),
 
-let darkMode = document.querySelector("#dark-mode");
-let lightMode = document.querySelector("#light-mode");
+    darkModeFunc: function(){
+        this.darkMode.addEventListener("click", () => {
+          this.buttonClicked = !this.buttonClicked;
 
-darkMode.addEventListener('click', ()=>{
-    buttonClicked = !buttonClicked
-    
-    if(buttonClicked){
-        document.documentElement.setAttribute('data-theme', 'dark')
-        lightMode.setAttribute('data-display', 'show')
-        darkMode.setAttribute('data-display', 'none')
-    } else{
-        document.documentElement.setAttribute('data-theme', 'light')
-        lightMode.setAttribute('data-display', 'none')
-        darkMode.setAttribute('data-display', 'show')
+          if (this.buttonClicked) {
+            document.documentElement.setAttribute("data-theme", "dark");
+            this.lightMode.setAttribute("data-display", "show");
+            this.darkMode.setAttribute("data-display", "none");
+          } else {
+            document.documentElement.setAttribute("data-theme", "light");
+            this.lightMode.setAttribute("data-display", "none");
+            this.darkMode.setAttribute("data-display", "show");
+          }
+        });
+    },
+
+    lightModeFunc: function(){
+        this.lightMode.addEventListener('click', () =>{
+            this.buttonClicked = !this.buttonClicked
+
+            if(this.buttonClicked){
+                document.documentElement.setAttribute('data-theme', 'dark')
+                this.lightMode.setAttribute("data-display", "none");
+                this.darkMode.setAttribute("data-display", "show");
+            } else{
+                document.documentElement.setAttribute("data-theme", "light");
+                this.lightMode.setAttribute("data-display", "none");
+                this.darkMode.setAttribute("data-display", "show");
+            }
+        })
     }
-})
+}
 
-lightMode.addEventListener('click', ()=>{
-    buttonClicked = !buttonClicked
-    
-    if(buttonClicked){
-        document.documentElement.setAttribute('data-theme', 'dark')
-        darkMode.setAttribute('data-display', 'none')
-        lightMode.setAttribute('data-display', 'show')
-    } else{
-        document.documentElement.setAttribute('data-theme', 'light')
-        darkMode.setAttribute('data-display', 'show')
-        lightMode.setAttribute('data-display', 'none')
-    }
-})
+themeToggle.darkModeFunc()
+themeToggle.lightModeFunc()
 
-fetchCountries()
 
 // Single Country
 
-const fetchCountry = async (country) =>{
-    let res = await fetch(`https://restcountries.com/v3.1/name/${country}`)
-    let data = await res.json() 
-    
-    localStorage.setItem('country', JSON.stringify(data))
-    
+const fetchSingleCountry = {
+    fetchCountry: async function(country){
+        let res = await fetch(`https://restcountries.com/v3.1/name/${country}`);
+        let data = await res.json()
+
+        localStorage.setItem("country", JSON.stringify(data));
+        window.location.href = "singlecountry.html"
+        console.log(data);
+    }
 }
 
-const displayCountry = ()=>{
-    let countryArr = localStorage.getItem('country') ? localStorage.getItem('country') : []
-
-    let displaySection = document.querySelector('#country-name')
-
-    displaySection.innerHTML = ''
-
-    countryArr.forEach((country) =>{
-        displaySection.innerHTML += `
-            <h1>${country.name.common}</h1>
-        `
-    })
-}
-
-displayCountry()
