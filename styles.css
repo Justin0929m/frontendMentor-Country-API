@@ -1,0 +1,177 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,300;6..12,600;6..12,800&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+button {
+  cursor: pointer;
+}
+
+html[data-theme=light] {
+  background-color: hsl(0, 0%, 98%);
+  color: #000;
+}
+
+html[data-theme=dark] {
+  background-color: hsl(207, 26%, 17%);
+  color: #fff;
+}
+html[data-theme=dark] select {
+  background-color: hsl(209, 23%, 22%);
+  color: #fff;
+}
+html[data-theme=dark] .search {
+  background-color: hsl(209, 23%, 22%);
+  color: #fff;
+}
+html[data-theme=dark] .search::placeholder {
+  color: #fff;
+}
+html[data-theme=dark] .checkbox input[type=checkbox] {
+  opacity: 0;
+}
+html[data-theme=dark] .card {
+  background-color: hsl(209, 23%, 22%);
+}
+html[data-theme=dark] .card-body {
+  background-color: hsl(209, 23%, 22%);
+  color: #fff;
+}
+
+#dark-mode[data-display=none] {
+  display: none;
+}
+#dark-mode[data-display=none] .moon {
+  display: none;
+}
+
+#dark-mode[data-display=show] {
+  display: block;
+}
+#dark-mode[data-display=show] .moon {
+  display: initial;
+}
+
+#light-mode {
+  display: none;
+}
+#light-mode .sun {
+  display: none;
+}
+
+#light-mode[data-display=show] {
+  display: block;
+  color: #fff;
+}
+#light-mode[data-display=show] .sun {
+  display: initial;
+}
+
+#light-mode[data-display=none] {
+  display: none;
+}
+
+body {
+  font-family: "Nunito Sans", sans-serif;
+}
+
+nav {
+  padding: 2rem;
+  box-shadow: 0 2px 6px -6px black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+i {
+  font-weight: 600;
+}
+
+.btn {
+  border: none;
+  background-color: transparent;
+  font-weight: 600;
+}
+
+.main {
+  margin: 2rem 4rem;
+}
+
+#countries {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  place-items: center;
+  gap: 4rem;
+}
+#countries .card {
+  height: 22rem;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0px -1px 10px -5px rgba(0, 0, 0, 0.35);
+}
+#countries .card-body {
+  padding: 1.5rem;
+}
+#countries .card-title {
+  margin-bottom: 1rem;
+}
+#countries .card-img {
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  width: 100%;
+}
+#countries .card-title {
+  font-size: 1rem;
+}
+
+.search-functions {
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem 4rem;
+}
+.search-functions .search {
+  width: 25rem;
+  height: 3rem;
+  position: relative;
+  padding-left: 2rem;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 0px -1px 10px -5px rgba(0, 0, 0, 0.35);
+}
+.search-functions select {
+  background-color: transparent;
+  padding: 0 1em 0 1rem;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: inherit;
+  line-height: inherit;
+  width: 15rem;
+  height: 3rem;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 0px -1px 10px -5px rgba(0, 0, 0, 0.35);
+}
+.search-functions .search-icon {
+  position: absolute;
+  z-index: 9999;
+  padding: 0.7rem;
+}
+
+@media only screen and (width <= 48rem) {
+  .main {
+    margin: 1rem;
+  }
+  .search-functions {
+    flex-direction: column;
+    margin: 1rem;
+  }
+  .search-functions .search {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+}
+
+/*# sourceMappingURL=styles.css.map */
