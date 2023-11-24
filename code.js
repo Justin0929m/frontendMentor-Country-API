@@ -41,16 +41,13 @@ const searchQuery = {
       let countryArr = JSON.parse(localStorage.getItem('countries'))
 
     if(this.searchTrim != ''){
-    //     const res = await fetch(
-    //     `https://restcountries.com/v3.1/name/${searchTrim}`
-    //   );
-    //   const data = await res.json();
 
-
-
-    console.log(countryArr.includes(searchTrim));
-
-    //   renderCountries.render(data)
+      const findCountry = countryArr.filter((country) => {
+        const countryNameLowerCase = country.name.common.toLowerCase()
+        return countryNameLowerCase.includes(searchTrim)
+      })
+      renderCountries.render(findCountry)
+      console.log(findCountry);
     } else{
         fetchCountriesObject.fetchCountries()
     }

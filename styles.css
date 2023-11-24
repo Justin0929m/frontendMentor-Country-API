@@ -18,6 +18,9 @@ html[data-theme=dark] {
   background-color: hsl(207, 26%, 17%);
   color: #fff;
 }
+html[data-theme=dark] nav {
+  background-color: hsl(209, 23%, 22%);
+}
 html[data-theme=dark] select {
   background-color: hsl(209, 23%, 22%);
   color: #fff;
@@ -29,8 +32,11 @@ html[data-theme=dark] .search {
 html[data-theme=dark] .search::placeholder {
   color: #fff;
 }
-html[data-theme=dark] .checkbox input[type=checkbox] {
-  opacity: 0;
+html[data-theme=dark] .back-btn {
+  color: #fff;
+  border: none;
+  background-color: hsl(209, 23%, 22%);
+  box-shadow: 0px -1px 10px -5px rgba(0, 0, 0, 0.35);
 }
 html[data-theme=dark] .card {
   background-color: hsl(209, 23%, 22%);
@@ -73,6 +79,39 @@ html[data-theme=dark] .card-body {
   display: none;
 }
 
+#single-dark-mode[data-display=none] {
+  display: none;
+}
+#single-dark-mode[data-display=none] .moon {
+  display: none;
+}
+
+#single-dark-mode[data-display=show] {
+  display: block;
+}
+#single-dark-mode[data-display=show] .moon {
+  display: initial;
+}
+
+#single-light-mode {
+  display: none;
+}
+#single-light-mode .sun {
+  display: none;
+}
+
+#single-light-mode[data-display=show] {
+  display: block;
+  color: #fff;
+}
+#single-light-mode[data-display=show] .sun {
+  display: initial;
+}
+
+#single-light-mode[data-display=none] {
+  display: none;
+}
+
 body {
   font-family: "Nunito Sans", sans-serif;
 }
@@ -99,6 +138,13 @@ i {
   margin: 2rem 4rem;
 }
 
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50svh;
+}
+
 #countries {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -110,6 +156,7 @@ i {
   border-radius: 5px;
   overflow: hidden;
   box-shadow: 0px -1px 10px -5px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
 }
 #countries .card-body {
   padding: 1.5rem;
@@ -160,7 +207,74 @@ i {
   padding: 0.7rem;
 }
 
+.single-page {
+  overflow-y: hidden;
+}
+
+.country-container {
+  padding: 4rem;
+}
+
+.country {
+  height: 80dvh;
+  display: flex;
+  gap: 5rem;
+}
+
+.country-img {
+  width: 35rem;
+}
+
+.country-details {
+  padding: 2rem;
+}
+
+.country-title {
+  padding-bottom: 2rem;
+}
+
+.country-subdetails {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  line-height: 2rem;
+}
+
+.right-side {
+  padding-left: 5rem;
+}
+
+.tag-group {
+  display: flex;
+}
+
+.group-tag {
+  background-color: transparent;
+  border: 1px solid hsl(0, 0%, 98%);
+  padding: 0.2rem 1rem;
+}
+
+.back-btn {
+  display: inline-block;
+  background-color: transparent;
+  border: 2px solid hsl(0, 0%, 98%);
+  box-shadow: 0px -1px 10px -5px rgba(0, 0, 0, 0.35);
+  padding: 0.5rem 1.5rem;
+  margin-bottom: 3rem;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.arrow {
+  padding-right: 0.5rem;
+}
+
 @media only screen and (width <= 48rem) {
+  nav {
+    padding: 1rem;
+  }
+  .nav-title {
+    font-size: 0.8rem;
+  }
   .main {
     margin: 1rem;
   }
@@ -171,6 +285,34 @@ i {
   .search-functions .search {
     width: 100%;
     margin-bottom: 2rem;
+  }
+  .single-page {
+    overflow: initial;
+  }
+  .country {
+    display: flex;
+    flex-direction: column;
+    margin: 2rem;
+  }
+  .country-container {
+    padding: 0;
+  }
+  .country-details {
+    padding: 0;
+  }
+  .country-subdetails {
+    display: initial;
+    padding: 0;
+  }
+  .right-side {
+    padding: 0;
+    margin-bottom: 3rem;
+  }
+  .country-img {
+    width: 100%;
+  }
+  .back-btn {
+    margin: 2rem;
   }
 }
 

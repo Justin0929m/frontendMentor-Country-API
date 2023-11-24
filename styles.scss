@@ -6,6 +6,7 @@ $veryDarkBlueLMT: hsl(200, 15%, 8%); // Light Mode Text
 $darkGray: hsl(0, 0%, 52%); // Light Mode Input
 $veryLightGray: hsl(0, 0%, 98%); // Light Mode Background
 $white: hsl(0, 0%, 100%); // Dark Mode Text & Light Mode Elements
+$shadows: 0px -1px 10px -5px rgba(0, 0, 0, 0.35); 
 
 
 * {
@@ -50,6 +51,10 @@ html[data-theme='dark']{
     background-color: $veryDarkBlue;
     color: #fff;
 
+    nav{
+        background-color: $veryBlue;
+    }
+
     select{
         @include darkModeInputs()
     }
@@ -61,9 +66,12 @@ html[data-theme='dark']{
     .search::placeholder{
         color: #fff;
     }
-    
-    .checkbox input[type='checkbox']{
-        opacity: 0;
+
+    .back-btn{
+        color: #fff;
+        border: none;
+        background-color: $veryBlue;
+        box-shadow: $shadows;
     }
 
     .card{
@@ -115,6 +123,44 @@ html[data-theme='dark']{
     display: none;
 }
 
+// Single Page Theme
+
+#single-dark-mode[data-display='none']{
+    display: none;
+    .moon{
+        display: none;
+    }
+}
+
+#single-dark-mode[data-display='show']{
+    display: block;
+
+    .moon{
+        display: initial;
+    }
+}
+
+#single-light-mode{
+    display: none;
+
+    .sun{
+        display: none;
+    }
+}
+
+#single-light-mode[data-display='show']{
+    display: block;
+    color: #fff;
+    
+    .sun{
+        display: initial;
+    }
+}
+
+#single-light-mode[data-display='none']{
+    display: none;
+}
+
 body {
     font-family: "Nunito Sans", sans-serif;
 }
@@ -141,6 +187,13 @@ i {
     margin: 2rem 4rem;
 }
 
+.loading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50svh;
+}
+
 // Countries Section
 
 #countries{
@@ -153,7 +206,8 @@ i {
         height: 22rem;
         border-radius: 5px;
         overflow: hidden;
-        box-shadow: 0px -1px 10px -5px rgba(0, 0, 0, 0.35);
+        box-shadow: $shadows;
+        cursor: pointer;
     }
 
     .card-body{
@@ -212,7 +266,79 @@ select {
 }
 }
 
+// Single Page Country
+
+.single-page{
+    overflow-y: hidden;
+}
+
+.country-container{
+    padding: 4rem;
+}
+
+.country{
+    height: 80dvh;
+    display: flex;
+    gap: 5rem;
+}
+
+.country-img{
+    width: 35rem;
+}
+
+.country-details{
+    padding: 2rem;
+}
+
+.country-title{
+    padding-bottom: 2rem;
+}
+
+.country-subdetails{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    line-height: 2rem;
+}
+
+.right-side{
+    padding-left: 5rem;
+}
+
+.tag-group{
+    display: flex;
+}
+
+.group-tag{
+    background-color: transparent;
+    border: 1px solid $veryLightGray;
+    padding: .2rem 1rem;
+}
+
+.back-btn{
+    display: inline-block;
+    background-color: transparent;
+    border: 2px solid $veryLightGray;
+    box-shadow: $shadows;
+    padding: .5rem 1.5rem;
+    margin-bottom: 3rem;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.arrow{
+    padding-right: .5rem;
+}
+
 @media only screen and (width <= 48rem) {
+
+    nav{
+        padding: 1rem;
+    }
+
+    .nav-title{
+        font-size: .8rem;
+    }
+
     .main{
         margin: 1rem;
     }
@@ -225,5 +351,41 @@ select {
             width: 100%;
             margin-bottom: 2rem;
         }
+    }
+
+    .single-page{
+        overflow: initial;
+    }
+
+    .country{
+        display: flex;
+        flex-direction: column;
+        margin: 2rem;
+    }
+
+    .country-container{
+        padding: 0;
+    }
+
+    .country-details{
+        padding: 0;
+    }
+
+    .country-subdetails{
+        display: initial;
+        padding: 0;
+    }
+
+    .right-side{
+        padding: 0;
+        margin-bottom: 3rem;
+    }
+
+    .country-img{
+        width: 100%;
+    }
+
+    .back-btn{
+        margin: 2rem;
     }
 }
